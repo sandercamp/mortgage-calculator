@@ -1,25 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import Form from './components/organisms/Form';
+import Chart from './components/organisms/Chart';
+import PaymentSchedule from './contexts/Schedule';
+import Table from './components/organisms/Table';
 
-function App() {
-  return (
+const App = () => (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <PaymentSchedule>
+            <Form/>
+            <Chart/>
+            <Table />
+        </PaymentSchedule>
     </div>
-  );
-}
+);
 
 export default App;
