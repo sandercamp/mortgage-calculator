@@ -8,6 +8,7 @@ export type PaymentInterval = {
     paymentTotal: number;
     principalRemainder: number;
     principalTotal: number;
+    interestTotal: number;
 }
 
 export type AmortizationSchedule = {

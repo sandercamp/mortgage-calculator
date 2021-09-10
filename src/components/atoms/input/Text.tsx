@@ -1,17 +1,11 @@
 import React, { FC } from 'react';
 
-interface InputProps {
-    name: string;
-    value: string;
-    [x:string]: any;
-}
-
-const Text: FC<InputProps> = ({ name, value, ...rest }) => (
+const Text: FC<JSX.IntrinsicElements['input']> = ({ name, value, ...props }) => (
     <input
         type={ 'text' }
         name={ name }
         value={ value }
-        { ...rest }
+        { ...props }
     />
 );
 

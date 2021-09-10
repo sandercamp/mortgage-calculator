@@ -8,42 +8,48 @@ import { AmortizationSchedule } from "../../types";
 import PointTooltip from '../molecules/PointTooltip';
 
 const Container = styled.div`
-    width: 50rem;
-    height: 25rem;
+    grid-area: chart;
 `;
 
 const mapSchedule = (schedule: AmortizationSchedule): Array<Serie> => {
+    const dateFormat = 'yyyy-LL';
+
     return [
         {
             id: 'Aflossing',
+            color: '#b8d8d8',
             data : schedule.paymentIntervals.map(
                 (interval): Datum => (
-                    { x: interval.date.toFormat('yyyy-LL'), y: interval.principalShare }
+                    { x: interval.date.toFormat(dateFormat), y: interval.principalShare }
                 )
             ),
         },
         {
             id: 'Rente',
+            color: '#eef5db',
             data : schedule.paymentIntervals.map(
                 (interval): Datum => (
-                    { x: interval.date.toFormat('yyyy-LL'), y: interval.interestShare }
+                    { x: interval.date.toFormat(dateFormat), y: interval.interestShare }
                 )
             ),
         },
     ];
 }
 
-const Chart: FC = (): ReactElement|null => {
+const Chart: FC = () => {
     const { schedule } = useSchedule();
 
     if (schedule === null) {
         return null;
     }
 
+    const data = mapSchedule(schedule);
+
     return (
         <Container>
             <ResponsiveLine
-                data={ mapSchedule(schedule) }
+                data={ data }
+                colors={ series => series.color }
                 enableArea={ true }
                 areaOpacity={ 1 }
                 enableGridX={ false }
@@ -74,7 +80,7 @@ const Chart: FC = (): ReactElement|null => {
                         legend: 'Test',
                         legendOffset: 36,
                         legendPosition: 'middle',
-                        format: '%Y-%m'
+                        format: '%m-%Y'
                     }
                 }
                 axisLeft={

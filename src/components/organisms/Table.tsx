@@ -1,7 +1,17 @@
-import React from 'react';
-import { Table as BasicTable, TableCell, TableHead, TableRow } from '@material-ui/core';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import { Table as BasicTable, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import { useSchedule } from '../../contexts/Schedule';
-import {PaymentInterval} from '../../types';
+import { PaymentInterval } from '../../types';
+
+const Container = styled.div`
+    grid-area: table;
+    
+    overflow: auto;
+    
+    margin: 0 1rem 0 1rem;
+`;
 
 const renderRow = (interval: PaymentInterval): JSX.Element => (
     <TableRow>
@@ -32,37 +42,58 @@ const renderRow = (interval: PaymentInterval): JSX.Element => (
 const Table = () => {
     const { schedule } = useSchedule();
 
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 5;
+
     if (schedule === null) {
         return null;
     }
 
     return (
-        <BasicTable>
-            <TableHead>
-                <TableCell>
-                    Datum
-                </TableCell>
-                <TableCell>
-                    Aflossingsdeel
-                </TableCell>
-                <TableCell>
-                    Rentedeel
-                </TableCell>
-                <TableCell>
-                    Totaal deel
-                </TableCell>
-                <TableCell>
-                    Totaal betaald
-                </TableCell>
-                <TableCell>
-                    Totaal afgelost
-                </TableCell>
-                <TableCell>
-                    Resterende schuld
-                </TableCell>
-            </TableHead>
-            { schedule.paymentIntervals.map(renderRow) }
-        </BasicTable>
+        <Container>
+            <BasicTable>
+                <TableHead>
+                    <TableCell>
+                        Datum
+                    </TableCell>
+                    <TableCell>
+                        Aflossingsdeel
+                    </TableCell>
+                    <TableCell>
+                        Rentedeel
+                    </TableCell>
+                    <TableCell>
+                        Totaal deel
+                    </TableCell>
+                    <TableCell>
+                        Totaal afgelost
+                    </TableCell>
+                    <TableCell>
+                        Totaal betaald
+                    </TableCell>
+                    <TableCell>
+                        Resterende schuld
+                    </TableCell>
+                </TableHead>
+                {
+                    schedule.paymentIntervals
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map(renderRow)
+                }
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            count={ schedule.paymentIntervals.length }
+                            page={ page }
+                            rowsPerPage={ rowsPerPage }
+                            onPageChange={ (event, page) => setPage(page) }
+                            rowsPerPageOptions={ [] }
+                        />
+                    </TableRow>
+
+                </TableFooter>
+            </BasicTable>
+        </Container>
     );
 };
 

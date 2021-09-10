@@ -70,6 +70,7 @@ const calculateSchedule = (
                 interestShare: round(interestShare),
                 shareTotal: round(interestShare + principalShare),
                 paymentTotal: round(schedule.interest + principalTotal),
+                interestTotal: schedule.interest,
                 principalRemainder: Math.abs(round(principalRemainder)),
                 principalTotal: round(principalTotal),
             }

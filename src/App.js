@@ -1,15 +1,11 @@
 import './App.css';
-import Form from './components/organisms/Form';
-import Chart from './components/organisms/Chart';
 import PaymentSchedule from './contexts/Schedule';
-import Table from './components/organisms/Table';
+import View from './components/pages/View';
 
 const App = () => (
     <div className="App">
         <PaymentSchedule>
-            <Form/>
-            <Chart/>
-            <Table />
+            <View/>
         </PaymentSchedule>
     </div>
 );

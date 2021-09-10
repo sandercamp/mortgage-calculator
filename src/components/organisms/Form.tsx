@@ -1,9 +1,33 @@
 import React, { BaseSyntheticEvent, useState } from 'react';
+import styled from 'styled-components';
 
 import calculateSchedule from '../../utils/calculator';
 import { MortgageType } from '../../types';
 import Text from '../atoms/input/Text';
 import { useSchedule } from "../../contexts/Schedule";
+
+const Container = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 1rem;
+    width: 100%;
+   
+    color: #eef5db;
+   
+    > * {
+        margin: .4rem 0 .4rem;
+    }
+   
+    input {
+        margin: 0 .25rem 0;
+        padding: .25rem;
+        
+        border: none;
+        outline: none;
+    }
+`;
 
 const Form = () => {
     const { setSchedule } = useSchedule();
@@ -40,7 +64,7 @@ const Form = () => {
     }
 
     return (
-        <form onChange={ onChange } onSubmit={ onSubmit }>
+        <Container onChange={ onChange } onSubmit={ onSubmit }>
             <label>
                 Datum
                 <Text
@@ -98,7 +122,7 @@ const Form = () => {
                 type={ 'submit' }
                 value={ 'Berekenen' }
             />
-        </form>
+        </Container>
     );
 }
 

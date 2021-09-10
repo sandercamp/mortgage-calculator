@@ -15,7 +15,7 @@ const defaultContext = {
 const Context = createContext<ScheduleContext>(defaultContext);
 
 const Schedule: FC = ({ children }) => {
-    const [schedule, setSchedule] = useState<AmortizationSchedule|null>(null);
+    const [ schedule, setSchedule ] = useState<AmortizationSchedule|null>(null);
 
     return (
         <Context.Provider
